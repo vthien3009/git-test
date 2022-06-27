@@ -31,8 +31,13 @@ class StaffList extends Component {
         </div>
       );
     });
+    return (
+      <div className="container">
 
+        <div className="row">{StaffList}</div>
 
+      </div>
+    );
   }
 }
 export default StaffList;
