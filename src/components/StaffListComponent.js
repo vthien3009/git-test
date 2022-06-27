@@ -49,7 +49,7 @@ class StaffList extends Component {
     const StaffList = this.props.staffs.map((staff) => {
       return (
         <div className={this.state.columDefault}>
-          <Card key={staff.id} onClick={() => this.onSelecteStaff(staff)}>
+          <Card style={{borderRadius: '20px', textAlign:'center', backgroundColor:"black", color:'#028ADE'}} key={staff.id} onClick={() => this.onSelecteStaff(staff)}>
             <CardBody>
               <CardTitle>{staff.name}</CardTitle>
             </CardBody>
@@ -78,19 +78,18 @@ class StaffList extends Component {
           >
             3 cot
           </button>
-          
-      <button
-        onClick={() => this.onColumnSelect("col-md-6 mt-1")}
-        className="btn btn-success mr-3"
-      >
-        2 cot
-      </button>
-      <button
-        onClick={() => this.onColumnSelect("col-md-12 mt-1")}
-        className="btn btn-success mr-3"
-      >
-        1 cot
-      </button>
+          <button
+            onClick={() => this.onColumnSelect("col-md-6 mt-1")}
+            className="btn btn-success mr-3"
+          >
+            2 cot
+          </button>
+          <button
+            onClick={() => this.onColumnSelect("col-md-12 mt-1")}
+            className="btn btn-success mr-3"
+          >
+            1 cot
+          </button>
         </div>
         <div className="row">{StaffList}</div>
         <div className="row mt-3">
