@@ -7,7 +7,6 @@ class StaffList extends Component {
     super(props);
     this.state = {
       onSelectedStaff: null,
-      
     };
   }
 
@@ -15,9 +14,32 @@ class StaffList extends Component {
     this.setState({ onSelectedStaff: staff });
   }
 
-
-
-
+  renderStaff(staff) {
+    console.log({ staff });
+    if (staff != null) {
+      return (
+        <div className="col-12">
+          <Card>
+            <CardImg width="100%" src={staff.image} alt={staff.name} />
+            <CardBody>
+              <CardTitle>Ho va ten: {staff.name}</CardTitle>
+              <CardText>
+                Ngay sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}
+              </CardText>
+              <CardText>
+                Ngay vao cong ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
+              </CardText>
+              <CardText>Phong ban: {staff.department.name}</CardText>
+              <CardText>So ngay nghi con lai: {staff.annualLeave}</CardText>
+              <CardText>So ngay da lam them: {staff.overTime}</CardText>
+            </CardBody>
+          </Card>
+        </div>
+      );
+    } else {
+      return <div></div>;
+    }
+  }
 
   render() {
     const StaffList = this.props.staffs.map((staff) => {
@@ -33,9 +55,10 @@ class StaffList extends Component {
     });
     return (
       <div className="container">
-
         <div className="row">{StaffList}</div>
-
+        <div className="row mt-3">
+          {this.renderStaff(this.state.onSelectedStaff)}
+        </div>
       </div>
     );
   }
