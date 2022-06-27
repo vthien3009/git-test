@@ -14,6 +14,9 @@ class StaffList extends Component {
   onSelecteStaff(staff) {
     this.setState({ onSelectedStaff: staff });
   }
+  onColumnSelect(col) {
+    this.setState({ columDefault: col });
+  }
 
   renderStaff(staff) {
     console.log({ staff });
