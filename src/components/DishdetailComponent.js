@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 
-class DishDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    console.log(this.props);
-  }
-  renderDish(dish) {
+
+
+  function RenderDish(dish) {
     return (
       <div className="col-12 col-md-5 m-1">
         <Card>
@@ -21,14 +17,14 @@ class DishDetail extends Component {
     );
   }
 
-  RenderComments(comments) {
+  function RenderComments(comments) {
     console.log(comments);
     if (comments != null) {
       return (
         <div className="col-12 col-md-5 m-1">
           <h4>Comments</h4>
           <ul className="list-unstyled">
-            {comments.map((comment) => {
+            {comments&&comments.map((comment) => {
               return (
                 <li key={comment.id}>
                   <p>{comment.comment}</p>
@@ -51,15 +47,15 @@ class DishDetail extends Component {
     }
   }
 
-  render() {
-    if (this.props.dish != null) {
+  const DishDetail = (props)=>{
+    if (props.dish != null) {
       return (
         <div className="container">
           <div className="row">
             {/* sử dụng đoạn này để chạy hàm render(dish) được chọn */}
-            {this.renderDish(this.props.dish)}
+            <RenderDish dish={props.dish}/>
             {/* sử dụng đoạn này để lấy renderComments(comment) tương ứng với dish được chọn */}
-            {this.RenderComments(this.props.dish.comments)}
+            <RenderComments comments ={props.dish.comments}/>
           </div>
         </div>
       );
@@ -67,5 +63,5 @@ class DishDetail extends Component {
       return <div></div>;
     }
   }
-}
+
 export default DishDetail;
