@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
 import Menu from "./MenuComponents";
 import DishDetail from "./DishdetailComponent";
+import Header from "./HeaderComponent";
+import Footer from "./FooterComponent";
 import { DISHES } from "../shared/dishes";
 
 class Main extends Component {
@@ -21,11 +22,7 @@ class Main extends Component {
     // console.log(this.state.dishes);
     return (
       <div className="App">
-        <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="">Ristorante Con Fusion</NavbarBrand>
-          </div>
-        </Navbar>
+        <Header />
         <Menu
         // truyền vào MenuCPN dishes để render ra bên ngoài
           dishes={this.state.dishes}
@@ -40,6 +37,7 @@ class Main extends Component {
             )[0]
           }
         />
+        <Footer />
       </div>
     );
   }
