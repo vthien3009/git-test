@@ -1,5 +1,5 @@
 import React from "react";
-import { Breadcrumb, BreadcrumbItem } from "bootstrap";
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
 
 function Contact(props) {
@@ -10,10 +10,10 @@ function Contact(props) {
           <BreadcrumbItem>
             <Link to="/home">Home</Link>
           </BreadcrumbItem>
-          <BreadcrumbItem active>Menu</BreadcrumbItem>
+          <BreadcrumbItem active>Contact Us</BreadcrumbItem>
         </Breadcrumb>
         <div className="col-12">
-          <h3>Menu</h3>
+          <h3>Contact Us</h3>
           <hr />
         </div>
       </div>
