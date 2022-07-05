@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem  } from "reactstrap";
+import {Link} from 'react-router-dom';
 
 function RenderDish(props) {
   return (
@@ -49,6 +50,16 @@ const DishDetail = (props) => {
   if (props.dish != null) {
     return (
       <div className="container">
+        <div className="row">
+          <Breadcrumb>
+            <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+            <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+        <div className="col-12">
+            <h3>{props.dish.name}</h3>
+            <hr />
+        </div>
         <div className="row">
           {/* sử dụng đoạn này để chạy hàm render(dish) được chọn */}
           <RenderDish dish={props.dish} />
