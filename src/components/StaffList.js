@@ -16,16 +16,13 @@ class StaffList extends Component {
         startDate: false,
       },
     };
-    this.timNhanVien = this.timNhanVien.bind(this);
-  }
-  timNhanVien(event) {
-    event.preventDefault(event);
-    const nameS = event.target.nameS.value;
-    this.setState({ nameF: nameS });
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleSubmit(){
-    
+  handleChange(event) {
+    event.preventDefault();
+    this.setState({ nameF: event.target.value });
   }
 
   render() {
@@ -39,18 +36,18 @@ class StaffList extends Component {
     // );
 
     const stafflist = this.props.staffs
-      .filter((val) => {
-        if (this.state.nameF === "") return val;
+      .filter((staff) => {
+        if (this.state.nameF === "") return staff;
         else if (
-          val.name.toLowerCase().includes(this.state.nameF.toLowerCase())
+          staff.name.toLowerCase().includes(this.state.nameF.toLowerCase())
         )
-          return val;
+          return staff;
         return 0;
       })
-      .map((val) => {
+      .map((staff) => {
         return (
-          <div className="col-6 col-md-4 col-lg-2 mt-3 mb-3" key={val.id}>
-            <RenderStaffItem staff={val} />
+          <div className="col-6 col-md-4 col-lg-2 mt-3 mb-3" key={staff.id}>
+            <RenderStaffItem staff={staff} />
           </div>
         );
       });
@@ -73,8 +70,8 @@ class StaffList extends Component {
             </div>
           </div>
           <div className="col-12 col-md-6 mt-3">
-            <form onSubmit={this.handleSubmit} className="form-group row ">
-              <div className="col-8 col-md-8">
+            <form onChange={this.handleChange} className="form-group row ">
+              <div className="col-12 col-md-12">
                 <input
                   type="text"
                   name="nameS"
@@ -82,18 +79,11 @@ class StaffList extends Component {
                   placeholder="Tim kiem nhan vien"
                 />
               </div>
-              <div className="col-4 col-md-4">
-                <button className="btn btn-success" type="submit">
-                  Tim Kiem
-                </button>
-              </div>
             </form>
           </div>
         </div>
         {/* render stafflist */}
-        <div className="row">
-
-        </div>
+        <div className="row">{stafflist}</div>
       </div>
     );
   }
