@@ -12,6 +12,7 @@ function Main() {
   const [nhanVien] = useState({
     staffs: STAFFS,
     departments: DEPARTMENTS,
+    
   });
   console.log(nhanVien);
   const StaffWithId = ({ match }) => {
