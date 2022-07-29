@@ -22,7 +22,7 @@ class StaffList extends Component {
     super(props);
     this.state = {
       nameF: "",
-      modalOpen: false,
+      isModalOpen: false,
       name: "",
       doB: "",
       salaryScale: 1,
@@ -63,7 +63,7 @@ class StaffList extends Component {
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.value==="checkbox"?target.checked:target.value;
+    const value = target.value === "checkbox" ? target.checked : target.value;
     const name = target.name;
     this.setState({
       [name]: value,
@@ -108,7 +108,7 @@ class StaffList extends Component {
     };
     if (this.state.touched.name && name.length < 3)
       errors.name = "Name should be >= 3 characters";
-    else if (this.touched.name && name.length >= 10)
+    else if (this.state.touched.name && this.state.name.length >= 10)
       errors.name = "Name should be <= 10 characters";
     if (this.state.touched.department && department.length < 1)
       errors.department = "Yêu cầu nhập";
@@ -163,9 +163,9 @@ class StaffList extends Component {
                 <h3>Nhan vien</h3>
               </div>
               <div className="col-2 col-auto">
-                <Button>
-                  <span className="fa fa-plus fa-lg"></span>
-                </Button>
+                <button onClick={this.toggleModal}>
+                  <span className="fa fa-plus fa-lg" ></span>
+                </button>
               </div>
             </div>
           </div>
@@ -184,24 +184,24 @@ class StaffList extends Component {
         </div>
         {/* render stafflist */}
         <div className="row">{stafflist}</div>
-        <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal}>
+        <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Thêm nhân viên</ModalHeader>
           <ModalBody>
-            <Form onSubmit = {this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
               <Row className="control-group">
-                <Label htmlFor = "name" md={4}>
+                <Label htmlFor="name" md={4}>
                   Tên
                 </Label>
                 <Col md={8}>
-                  <Input 
+                  <Input
                     type="text"
                     className="form-control"
                     id="name"
                     name="name"
                     value={this.state.name}
-                    valid={errors.name ===""}
-                    invalid={errors.name!==""}
-                    onBlur = {this.handleBlur('name')}
+                    valid={errors.name === ""}
+                    invalid={errors.name !== ""}
+                    onBlur={this.handleBlur("name")}
                     onChange={this.handleInputChange}
                   />
                   <FormFeedback>{errors.name}</FormFeedback>
@@ -210,7 +210,6 @@ class StaffList extends Component {
             </Form>
           </ModalBody>
         </Modal>
-
       </div>
     );
   }
