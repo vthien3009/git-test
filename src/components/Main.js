@@ -9,11 +9,23 @@ import { Switch, Route } from "react-router-dom";
 import { STAFFS, DEPARTMENTS } from "../data/staffList";
 
 function Main() {
-  const [nhanVien] = useState({
+  const [nhanVien, setnhanVien] = useState({
     staffs: STAFFS,
-    departments: DEPARTMENTS,
-    
   });
+
+  const [departments, setdepartments] = useState({
+    departments: DEPARTMENTS,
+  });
+
+  // them staff vao staffs
+  const addStaff = (staff) => {
+    const id = Math.floor(Math.random() * 10000 + 1);
+    const newStaff = { id, ...staff };
+    setnhanVien(nhanVien.push(newStaff));
+    console.log(newStaff);
+    console.log(this.state.staffs);
+  };
+
   console.log(nhanVien);
   const StaffWithId = ({ match }) => {
     return (
@@ -28,22 +40,26 @@ function Main() {
   };
   return (
     <div>
-    <Header />
+      <Header />
       <Switch>
         <Route
-            exact
-            path="/nhanvien"
-            component={() => <StaffList staffs={nhanVien.staffs} />}
+          exact
+          path="/nhanvien"
+          component={() => (
+            <StaffList onAdd={addStaff} staffs={nhanVien.staffs} />
+          )}
         />
-        <Route  path="/nhanvien/:nhanvienId" component={StaffWithId} />
-        <Route  path="/bophan" 
-                component={()=><Department dept={nhanVien.departments}/>}
+        <Route path="/nhanvien/:nhanvienId" component={StaffWithId} />
+        <Route
+          path="/bophan"
+          component={() => <Department dept={nhanVien.departments} />}
         />
-        <Route path="/luong" component={()=><Salary luong={nhanVien.staffs} />} 
-        
+        <Route
+          path="/luong"
+          component={() => <Salary luong={nhanVien.staffs} />}
         />
       </Switch>
-    <Footer />
+      <Footer />
     </div>
   );
 }
