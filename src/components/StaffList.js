@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 import {
-  Card,
-  CardImg,
-  CardBody,
-  CardSubtitle,
   Button,
   Modal,
   Col,
@@ -14,7 +10,9 @@ import {
   Row,
   Label,
   FormFeedback,
+  
 } from "reactstrap";
+import { Control, LocalForm, Errors } from "react-redux-form";
 import RenderStaffItem from "./RenderStaffItem";
 
 class StaffList extends Component {
@@ -27,7 +25,7 @@ class StaffList extends Component {
       doB: "",
       salaryScale: 1,
       startDate: "",
-      department: "Sale",
+      department: "",
       annualLeave: 0,
       overTime: 0,
       salary: 30000,
@@ -35,9 +33,9 @@ class StaffList extends Component {
       touched: {
         name: false,
         doB: false,
-        salaryScale: false,
         startDate: false,
         department: false,
+        salaryScale: false,
         annualLeave: false,
         overTime: false,
       },
@@ -49,10 +47,11 @@ class StaffList extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
-
+  
   handleChange(event) {
     event.preventDefault();
     this.setState({ nameF: event.target.value });
+    console.log(this.props);
   }
 
   handleBlur = (field) => (event) => {
@@ -70,7 +69,8 @@ class StaffList extends Component {
     });
   }
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault();
     const newStaff = {
       name: this.state.name,
       doB: this.state.doB,
@@ -108,8 +108,8 @@ class StaffList extends Component {
     };
     if (this.state.touched.name && name.length < 3)
       errors.name = "Name should be >= 3 characters";
-    else if (this.state.touched.name && this.state.name.length >= 10)
-      errors.name = "Name should be <= 10 characters";
+    else if (this.state.touched.name && this.state.name.length >= 50)
+      errors.name = "Name should be <= 50 characters";
     if (this.state.touched.department && department.length < 1)
       errors.department = "Yêu cầu nhập";
     if (this.state.touched.salaryScale && salaryScale.length < 1)
@@ -157,14 +157,14 @@ class StaffList extends Component {
       //bao gom them nv va o tim kiem nhan vien
       <div className="container">
         <div className="row">
-          <div className="col-12 col-md-6 mt-3">
+          <div className="col-12 col-md-6 mt-4">
             <div className="row">
               <div className="col-10 col-md-10">
                 <h3>Nhan vien</h3>
               </div>
               <div className="col-2 col-auto">
                 <button onClick={this.toggleModal}>
-                  <span className="fa fa-plus fa-lg" ></span>
+                  <span className="fa fa-plus fa-lg"></span>
                 </button>
               </div>
             </div>
@@ -207,6 +207,131 @@ class StaffList extends Component {
                   <FormFeedback>{errors.name}</FormFeedback>
                 </Col>
               </Row>
+              <Row className="control-group mt-2">
+                <Label htmlFor="doB" md={4}>
+                  Ngày sinh
+                </Label>
+                <Col md={8}>
+                  <Input
+                    type="Date"
+                    className="form-control"
+                    id="doB"
+                    name="doB"
+                    value={this.state.doB}
+                    valid={errors.doB === ""}
+                    invalid={errors.doB !== ""}
+                    onBlur={this.handleBlur("doB")}
+                    onChange={this.handleInputChange}
+                  />
+                  <FormFeedback>{errors.doB}</FormFeedback>
+                </Col>
+              </Row>
+              <Row className="control-group mt-2">
+                <Label htmlFor="startDate" md={4}>
+                  Ngày vào công ty
+                </Label>
+                <Col md={8}>
+                  <Input
+                    type="Date"
+                    className="form-control"
+                    id="startDate"
+                    name="startDate"
+                    value={this.state.startDate}
+                    valid={errors.startDate === ""}
+                    invalid={errors.startDate !== ""}
+                    onBlur={this.handleBlur("startDate")}
+                    onChange={this.handleInputChange}
+                  />
+                  <FormFeedback>{errors.startDate}</FormFeedback>
+                </Col>
+              </Row>
+              <Row className="control-group mt-2">
+                <Label htmlFor="department" md={4}>
+                  Bộ phận
+                </Label>
+                <Col md={8}>
+                  <Input
+                    type="select"
+                    className="form-control"
+                    id="department"
+                    name="department"
+                    value={this.state.department}
+                    valid={errors.department === ""}
+                    invalid={errors.department !== ""}
+                    onBlur={this.handleBlur("startDate")}
+                    onChange={this.handleInputChange}
+                  >
+                    <option>Sale</option>
+                    <option>IT</option>
+                    <option>Marketing</option>
+                  </Input>
+                  <FormFeedback>{errors.department}</FormFeedback>
+                </Col>
+              </Row>
+              <Row className="control-group mt-2">
+                <Label htmlFor="salaryScale" md={4}>
+                  Hệ số lương
+                </Label>
+                <Col md={8}>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    id="salaryScale"
+                    name="salaryScale"
+                    value={this.state.salaryScale}
+                    valid={errors.salaryScale === ""}
+                    invalid={errors.salaryScale !== ""}
+                    onBlur={this.handleBlur("salaryScale")}
+                    onChange={this.handleInputChange}
+                  />
+                  <FormFeedback>{errors.salaryScale}</FormFeedback>
+                </Col>
+              </Row>
+              <Row className="control-group mt-2">
+                <Label htmlFor="annualLeave" md={4}>
+                  Số ngày nghỉ còn lại
+                </Label>
+                <Col md={8}>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    id="annualLeave"
+                    name="annualLeave"
+                    value={this.state.annualLeave}
+                    valid={errors.annualLeave === ""}
+                    invalid={errors.annualLeave !== ""}
+                    onBlur={this.handleBlur("annualLeave")}
+                    onChange={this.handleInputChange}
+                  />
+                  <FormFeedback>{errors.annualLeave}</FormFeedback>
+                </Col>
+              </Row>
+              <Row className="control-group mt-2">
+                <Label htmlFor="overTime" md={4}>
+                  Số ngày tăng ca
+                </Label>
+                <Col md={8}>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    id="overTime"
+                    name="overTime"
+                    value={this.state.overTime}
+                    valid={errors.overTime === ""}
+                    invalid={errors.overTime !== ""}
+                    onBlur={this.handleBlur("overTime")}
+                    onChange={this.handleInputChange}
+                  />
+                  <FormFeedback>{errors.overTime}</FormFeedback>
+                </Col>
+              </Row>
+              <Row className="control-group mt-2">
+                <Col md={8}>
+                <Button type="submit" color="primary">
+                    Add
+                </Button>
+                </Col>
+              </Row>
             </Form>
           </ModalBody>
         </Modal>
@@ -215,66 +340,4 @@ class StaffList extends Component {
   }
 }
 
-// function StaffList(props) {
-//   const [NhanVien] = useState({
-//     nameF:"",
-//     modalOpen: false,
-//     doB: "",
-//     startDate: '',
-//     touched:{
-//       doB:false,
-//       startDate: false
-//     }
-//   });
-//   this.timNhanVien = this.timNhanVien.bind(this);
-//   console.log(props);
-
-//   function timNhanVien (event){
-//     event.preventDefault();
-//     const names = event.target.nameS.value;
-//     this.setState({ nameF: nameS});
-//   }
-
-//    const listNhanVien = props.staffs
-//    .filter((val)=>{
-//     if(NhanVien.nameF==='') return val;
-//     else if(val.name.tolowerCase().includes(NhanVien.nameF.toLocaleLowerCase())
-//     )
-//       return val;
-//     return 0;
-//    })
-//    .map((nv) => {
-//       return (
-//         <Link to={`/nhanvien/${nv.id}`}>
-//           <div key={nv.id}>
-//             <div className="col-12 m-1">
-//               <img src={nv.image} alt={nv.name} />
-//               <p center>{nv.name}</p>
-//             </div>
-//           </div>
-//         </Link>
-//       );
-//     });
-
-//   return (
-//     <div className="container">
-
-//         <form onSubmit={this.timNhanVien} className="form-group row mt-3">
-//           <div className="col-8 col-md-8">
-//             <input
-//             type="text"
-//             name="nameS"
-//             className= "form-control"
-//             placeholder = "Tim kiem nhan vien"
-//             />
-//           </div>
-//           <div className="col-4 col-md-4">
-//             <button className="btn btn-success" type="submit" >Tim Kiem</button>
-//           </div>
-//         </form>
-
-//       <div className="row">{listNhanVien}</div>
-//     </div>
-//   );
-// }
 export default StaffList;

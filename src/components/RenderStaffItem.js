@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function RenderStaffItem(props) {
+  console.log(props);
   // const listNhanVien = props.staffs.map((nv) => {
     return (
       <Link to={`/nhanvien/${props.staff.id}`}>

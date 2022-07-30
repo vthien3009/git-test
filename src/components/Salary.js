@@ -13,6 +13,7 @@ const luongCB = 3000000;
 const luongGio = 200000 / 8;
 
 function RenderSalary({ salary, colorSalary }) {
+  console.log(salary);
   return (
     <Card>
       <CardTitle className="p-3 bg-white rounded m-2">{salary.name}</CardTitle>

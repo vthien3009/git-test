@@ -9,29 +9,25 @@ import { Switch, Route } from "react-router-dom";
 import { STAFFS, DEPARTMENTS } from "../data/staffList";
 
 function Main() {
-  const [nhanVien, setnhanVien] = useState({
-    staffs: STAFFS,
-  });
+  const [staffs, setnhanVien] = useState(STAFFS);
 
-  const [departments, setdepartments] = useState({
-    departments: DEPARTMENTS,
-  });
+  const [departments, setdepartments] = useState(DEPARTMENTS);
 
   // them staff vao staffs
   const addStaff = (staff) => {
     const id = Math.floor(Math.random() * 10000 + 1);
     const newStaff = { id, ...staff };
-    setnhanVien(nhanVien.push(newStaff));
+    setnhanVien(staffs.concat([newStaff]));
     console.log(newStaff);
-    console.log(this.state.staffs);
+    console.log(staffs);
   };
-
-  console.log(nhanVien);
+staffs
+  console.log(staffs);
   const StaffWithId = ({ match }) => {
     return (
       <StaffDetail
         nv={
-          nhanVien.staffs.filter(
+          staffs.filter(
             (item) => item.id === parseInt(match.params.nhanvienId, 10)
           )[0]
         }
@@ -46,17 +42,17 @@ function Main() {
           exact
           path="/nhanvien"
           component={() => (
-            <StaffList onAdd={addStaff} staffs={nhanVien.staffs} />
+            <StaffList onAdd={addStaff} staffs={staffs} />
           )}
         />
         <Route path="/nhanvien/:nhanvienId" component={StaffWithId} />
         <Route
           path="/bophan"
-          component={() => <Department dept={nhanVien.departments} />}
+          component={() => <Department dept={departments} />}
         />
         <Route
           path="/luong"
-          component={() => <Salary luong={nhanVien.staffs} />}
+          component={() => <Salary luong={staffs} />}
         />
       </Switch>
       <Footer />
