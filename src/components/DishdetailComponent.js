@@ -9,6 +9,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import {Loading} from "./LoadingComponent"
 
 function RenderDish(props) {
   return (
@@ -24,7 +25,7 @@ function RenderDish(props) {
   );
 }
 
-function RenderComments(props) {
+function RenderComments(props) {//chua hoan thanh phút 20 trở đi https://www.coursera.org/learn/front-end-react/lecture/Q1cLW/exercise-video-redux-actions HDHT b8
   console.log(props.comments);
   if (props.comments != null) {
     return (
@@ -55,6 +56,23 @@ function RenderComments(props) {
 }
 
 const DishDetail = (props) => {
+  if(props.isLoading){
+    return(
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
+      </div>
+    );
+  }else if(props.errMess){
+    return(
+      <div className="container">
+        <div className="row">
+          <h4>{props.errMess}</h4>
+        </div>
+      </div>
+    );
+  }
   if (props.dish != null) {
     return (
       <div className="container">
@@ -74,7 +92,10 @@ const DishDetail = (props) => {
           {/* sử dụng đoạn này để chạy hàm render(dish) được chọn */}
           <RenderDish dish={props.dish} />
           {/* sử dụng đoạn này để lấy renderComments(comment) tương ứng với dish được chọn */}
-          <RenderComments comments={props.comments} />
+          <RenderComments comments={props.comments} 
+                          addComment={props.addComment}
+                          dishId = {props.dish.id}
+                           />
         </div>
       </div>
     );
