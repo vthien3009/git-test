@@ -70,4 +70,26 @@ export const addPromos = (promos) => ({
   type: ActionTypes.ADD_PROMOS,
   payload: promos,
 });
-//leaders
+//leaders-----------------------------------------------
+
+export const leadersloading = () => ({
+  type: ActionTypes.LEADERS_LOADING,
+});
+
+export const leadersFailed = (errmess) => ({
+  type: ActionTypes.LEADERS_FAILED,
+  payload: errmess,
+});
+
+export const addLeaders = (leaders) => ({
+  type: ActionTypes.ADD_LEADERS,
+  payload: leaders,
+});
+
+export const fetchLeaders = () => (dispatch) => {
+  dispatch(leadersloading(true));
+
+  return fetch(baseUrl + "leaders")
+    .then((res) => res.json())
+    .then((leaders) => dispatch(addLeaders(leaders)));
+};
