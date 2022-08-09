@@ -18,19 +18,18 @@ function RenderCard({ item, isLoading, errMess }) {
   } else {
     return (
       <Card>
-        <CardImg src={baseUrl + item.image} alt={item && item.name} />
+        <CardImg src={baseUrl + item.image} alt={item.name} />
         <CardBody>
-          <CardTitle>{item && item.name}</CardTitle>
-          {item && item.designation ? (
-            <CardSubtitle>{item && item.designation}</CardSubtitle>
+          <CardTitle>{item.name}</CardTitle>
+          {item.designation ? (
+            <CardSubtitle>{item.designation}</CardSubtitle>
           ) : null}
-          <CardText>{item && item.description}</CardText>
+          <CardText>{item.description}</CardText>
         </CardBody>
       </Card>
     );
   }
 }
-
 function Home(props) {
   console.log("home", props);
   return (

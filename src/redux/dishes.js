@@ -3,7 +3,7 @@ import * as ActionTypes from "./ActionTypes";
 export const Dishes = (
   state = {
     isLoading: true,
-    erMess: null,
+    errMess: null,
     dishes: [],
   },
   action
@@ -13,15 +13,15 @@ export const Dishes = (
       return {
         ...state,
         isLoading: false,
-        erMess: null,
+        errMess: null,
         dishes: action.payload,
       };
 
     case ActionTypes.DISHES_LOADING:
-      return { ...state, isLoading: true, erMess: null, dishes: [] };
+      return { ...state, isLoading: true, errMess: null, dishes: [] };
 
     case ActionTypes.DISHES_FAILED:
-      return { ...state, isLoading: false, erMess: action.payload, dishes: [] };
+      return { ...state, isLoading: false, errMess: action.payload, dishes: [] };
     default:
       return state;
   }
