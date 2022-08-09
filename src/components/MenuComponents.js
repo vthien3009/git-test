@@ -10,6 +10,7 @@ import {
 import DishDetail from "./DishdetailComponent";
 import {Link} from "react-router-dom";
 import {Loading} from "./LoadingComponent";
+import {baseUrl} from "../shared/baseUrl";
 
 
 function RenDerMenuItem({dish, toClick}) {
@@ -17,7 +18,7 @@ function RenDerMenuItem({dish, toClick}) {
 /* CPN cha (Main CPN) đã truyền toClick vào vào props để có thể sử dụng toClick phải có props và sau khi click sẽ truyền dish.id qua CPN cha, sau đó CPN cha sẽ gọi hàm onDishSelect(dishId) để thay đổi selectedDish: dish.id ở state */
       <Card>
         <Link to={`/menu/${dish.id}`}>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
           <CardImgOverlay>
               <CardTitle>{dish.name}</CardTitle>
           </CardImgOverlay>
