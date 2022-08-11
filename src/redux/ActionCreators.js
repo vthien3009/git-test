@@ -14,7 +14,7 @@ export const addComment = (dishID, rating, author, comment) => ({
 export const fetchDishes = () => (dispatch) => {
   dispatch(dishesloading(true));
 
-  return fetch(baseUrl + "dishess")
+  return fetch(baseUrl + "dishes")
     .then(
       (response) => {
         if (response.ok) {
