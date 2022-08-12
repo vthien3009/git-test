@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Card,
   CardImg,
@@ -7,7 +7,7 @@ import {
   Breadcrumb,
   BreadcrumbItem
 } from "reactstrap";
-import DishDetail from "./DishdetailComponent";
+// import DishDetail from "./DishdetailComponent";
 import {Link} from "react-router-dom";
 import {Loading} from "./LoadingComponent";
 import {baseUrl} from "../shared/baseUrl";
