@@ -3,13 +3,10 @@ import {
   Button,
   Modal,
   Col,
-  Form,
-  Input,
   ModalHeader,
   ModalBody,
   Row,
   Label,
-  FormFeedback,
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import RenderStaffItem from "./RenderStaffItem";
@@ -44,6 +41,7 @@ class StaffList extends Component {
         overTime: false,
       },
     };
+    console.log(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);

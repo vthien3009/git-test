@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import StaffList from "./StaffList";
@@ -6,28 +6,33 @@ import StaffDetail from "./StaffDetail";
 import Department from "./Departments";
 import Salary from "./Salary";
 import { Switch, Route } from "react-router-dom";
-import { STAFFS, DEPARTMENTS } from "../data/staffList";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import {fetchStaffs, fetchDepartments, fetchStaffsSalary} from "../redux/ActionCreators";
+// import { STAFFS, DEPARTMENTS } from "../data/staffList";
+
 
 function Main() {
-  const [staffs, setnhanVien] = useState(STAFFS);
 
-  const [departments, setdepartments] = useState(DEPARTMENTS);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(fetchStaffs());
+    dispatch(fetchDepartments());
+    dispatch(fetchStaffsSalary());
+  },[])
+  const staffs = useSelector(state => state.staffs);
+  const departments = useSelector(state => state.departments)
+  const staffssalary = useSelector(state => state.staffssalary)
 
-  // them staff vao staffs
-  const addStaff = (staff) => {
-    const id = Math.floor(Math.random() * 10000 + 1);
-    const newStaff = { id, ...staff };
-    setnhanVien(staffs.concat([newStaff]));
-    console.log(newStaff);
-    console.log(staffs);
-  };
-staffs
-  console.log(staffs);
+    console.log('staffs',staffs);
+    console.log('departments',departments);
+    console.log('staffssalary',staffssalary);
+
   const StaffWithId = ({ match }) => {
     return (
       <StaffDetail
         nv={
-          staffs.filter(
+          staffs.staffs.filter(
             (item) => item.id === parseInt(match.params.nhanvienId, 10)
           )[0]
         }
@@ -42,7 +47,10 @@ staffs
           exact
           path="/nhanvien"
           component={() => (
-            <StaffList onAdd={addStaff} staffs={staffs} />
+            <StaffList 
+            // onAdd={addStaff} 
+            staffs={staffs.staffs} 
+            />
           )}
         />
         <Route path="/nhanvien/:nhanvienId" component={StaffWithId} />
@@ -52,7 +60,7 @@ staffs
         />
         <Route
           path="/luong"
-          component={() => <Salary luong={staffs} />}
+          component={() => <Salary luong={staffssalary.staffssalary} />}
         />
       </Switch>
       <Footer />

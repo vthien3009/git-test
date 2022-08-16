@@ -1,0 +1,1 @@
+export const baseUrl1 = 'https://rjs101xbackend.herokuapp.com/';

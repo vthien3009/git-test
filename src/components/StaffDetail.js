@@ -5,6 +5,7 @@ import dateFormat from "dateformat";
 
 
 function RenderStaff({staff}) {
+    console.log(staff);
     if (staff != null) {
       return (
         <div className="col-12">
@@ -21,7 +22,7 @@ function RenderStaff({staff}) {
                         <CardText>
                             Ngay vao cong ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
                         </CardText>
-                        <CardText>Phong ban: {staff.department.name}</CardText>
+                        <CardText>Phong ban: {staff.name}</CardText>
                         <CardText>So ngay nghi con lai: {staff.annualLeave}</CardText>
                         <CardText>So ngay da lam them: {staff.overTime}</CardText>
                         </CardBody>

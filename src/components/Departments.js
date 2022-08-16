@@ -23,7 +23,7 @@ class RenderDept extends Component {
 function Department (props) {
     console.log(props);
         //dung map de fetch toan bo data tu props cua Main Component
-        const departments = props.dept.map((department)=>{
+        const departments = props.dept.departments.map((department)=>{
             return(
                 <div className="col-12 col-md-6 col-lg-4 mt-2 mb-2" key={department.id}>
                     <RenderDept dept={department}/>
