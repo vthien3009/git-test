@@ -4,29 +4,38 @@ import Footer from "./Footer";
 import StaffList from "./StaffList";
 import StaffDetail from "./StaffDetail";
 import Department from "./Departments";
+import DepartmentDetail from "./DepartmentDetail";
 import Salary from "./Salary";
 import { Switch, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import {fetchStaffs, fetchDepartments, fetchStaffsSalary} from "../redux/ActionCreators";
+import {
+  fetchStaffs,
+  fetchDepartments,
+  fetchStaffsSalary,
+  addStaff
+} from "../redux/ActionCreators";
+
 // import { STAFFS, DEPARTMENTS } from "../data/staffList";
 
-
 function Main() {
-
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchStaffs());
     dispatch(fetchDepartments());
     dispatch(fetchStaffsSalary());
-  },[])
-  const staffs = useSelector(state => state.staffs);
-  const departments = useSelector(state => state.departments)
-  const staffssalary = useSelector(state => state.staffssalary)
+    const addStaff = (staff) => {
+      dispatch(addStaff(staff))
+    };
+  }, []);
+  const staffs = useSelector((state) => state.staffs);
+  const departments = useSelector((state) => state.departments);
+  const staffssalary = useSelector((state) => state.staffssalary);
+  
+  console.log("staffs", staffs);
+  console.log("departments", departments);
+  console.log("staffssalary", staffssalary);
 
-    console.log('staffs',staffs);
-    console.log('departments',departments);
-    console.log('staffssalary',staffssalary);
 
   const StaffWithId = ({ match }) => {
     return (
@@ -39,6 +48,24 @@ function Main() {
       />
     );
   };
+  const StaffWithDepartment = ({match}) => {
+    // console.log(staffs.staffs.filter((staff)=>staff.departmentId=='Dept01'));
+    console.log(String(match.params.departmentId));
+    return (
+      <DepartmentDetail
+        // department={
+        //   departments.departments.filter(
+        //     (item) => item.departmentId === parseInt(match.params.departmentId)
+        //   )[0]
+        // }
+        staff={staffs
+        //   .staffs.filter(
+        //   (staff)=>staff.departmentId==String(match.params.departmentId)
+        // )
+      }
+      />
+    );
+  };
   return (
     <div>
       <Header />
@@ -47,21 +74,26 @@ function Main() {
           exact
           path="/nhanvien"
           component={() => (
-            <StaffList 
-            // onAdd={addStaff} 
-            staffs={staffs.staffs} 
+            <StaffList
+              onAdd={addStaff}
+              staffs={staffs.staffs}
             />
           )}
         />
         <Route path="/nhanvien/:nhanvienId" component={StaffWithId} />
+        <Route path="/departments/:departmentId" component={StaffWithDepartment} />
         <Route
-          path="/bophan"
-          component={() => <Department dept={departments} />}
+          path="/departments"
+          component={() => <Department departments={departments.departments}
+          staffs={staffs.staffs}
+           />
+          }
         />
         <Route
           path="/luong"
           component={() => <Salary luong={staffssalary.staffssalary} />}
         />
+        {/* <Redirect to="/staff"/> */}
       </Switch>
       <Footer />
     </div>

@@ -12,8 +12,6 @@ export const addStaffSuccess = (staffs) => ({
 });
 
 export const addStaff = (staff) => (dispatch) => {
-  // dispatch(staffsLoading(true));
-
   return fetch(baseUrl1 + "staffs", {
     method: "POST",
     body: JSON.stringify(staff),

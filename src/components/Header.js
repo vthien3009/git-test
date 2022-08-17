@@ -31,7 +31,7 @@ function Header() {
                   </Link>
                 </NavItem>
                 <NavItem>
-                  <Link className="text-white" to="/bophan">
+                  <Link className="text-white" to="/departments">
                     <span className="fa fa-id-card-o fa-lg m-2"> Phòng Ban</span>
                   </Link>
                 </NavItem>

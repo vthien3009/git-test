@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function RenderStaffItem(props) {
-  // console.log(props);
+function DepartmentDetail(props) {
+  console.log(props);
   // const listNhanVien = props.staffs.map((nv) => {
     return (
-      <Link to={`/nhanvien/${props.staff.id}`}>
+    //   <Link to={`/nhanvien/${props.staff.id}`}>
         <div key={props.staff.id}>
           <div className="col-12 m-1">
             <img src={props.staff.image} alt={props.staff.name} />
             <p center>{props.staff.name}</p>
           </div>
         </div>
-      </Link>
+    //   </Link>
     );
 
   // return (
@@ -21,4 +21,4 @@ function RenderStaffItem(props) {
   //   </div>
   // );
 }
-export default RenderStaffItem;
+export default DepartmentDetail;
