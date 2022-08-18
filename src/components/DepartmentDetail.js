@@ -2,23 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function DepartmentDetail(props) {
-  console.log(props);
-  // const listNhanVien = props.staffs.map((nv) => {
+  console.log(props.departments);
+  const listNhanVien = props.staff.map((staff) => {
     return (
-    //   <Link to={`/nhanvien/${props.staff.id}`}>
-        <div key={props.staff.id}>
+      <Link to={`/nhanvien/${staff.id}`}>
+        <div key={staff.id}>
           <div className="col-12 m-1">
-            <img src={props.staff.image} alt={props.staff.name} />
-            <p center>{props.staff.name}</p>
+            <img src={staff.image} alt={staff.name} />
+            <p center>{staff.name}</p>
           </div>
         </div>
-    //   </Link>
+      </Link>
     );
-
-  // return (
-  //   <div className="container">
-  //     <div className="row">{listNhanVien}</div>
-  //   </div>
-  // );
+  });
+  return (
+    <div className="container">
+      <h2>{props.departments[0].name}</h2>
+      <div className="row">{listNhanVien}</div>
+    </div>
+  );
 }
 export default DepartmentDetail;

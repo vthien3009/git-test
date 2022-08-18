@@ -1,5 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl1 } from "../shared/baseUrl";
+import React from "react";
 
 // export const staffsFailed = (errmess)=>({
 //     type: ActionTypes.FETCH_STAFFS_FAILED,
@@ -16,7 +17,7 @@ export const addStaff = (staff) => (dispatch) => {
     method: "POST",
     body: JSON.stringify(staff),
     headers: {
-      "Context-Type": "application/json",
+      "Content-Type": "application/json",
     },
     credentials: "same-origin",
   })
@@ -113,3 +114,21 @@ export const addStaffsSalary = (staffssalary)=>({
   type: ActionTypes.ADD_STAFFSSALARY,
   payload:staffssalary
 });
+
+//Delete Staff
+export const deleteStaffSuccess = (id) =>({
+  type: ActionTypes.DELETE_STAFF_SUCCESS,
+  payload: id
+});
+
+export const deleteStaffLoading = ()=>({
+  type: ActionTypes.DELETE_STAFF_LOADING,
+})
+
+export const deleteStaff = (id) =>(dispatch) =>{
+  if(window.confirm("Are you sure to delete this staff?")){
+    return fetch(baseUrl1+`staff/${id}`,{
+    method:"DELETE"
+  }).then(()=> dispatch(deleteStaffSuccess(id)));
+  }else return;
+}

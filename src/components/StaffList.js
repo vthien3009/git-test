@@ -71,6 +71,21 @@ class StaffList extends Component {
     });
   }
 
+  returnDepartment = (value) => {
+    if (value == "Sale") {
+      return "Dept01";
+    }else if (value == 'HR'){
+      return "Dept02";
+    }else if (value == 'Marketing'){
+      return "Dept03";
+    }else if (value == 'IT'){
+      return "Dept04";
+    }else if (value == "Finance"){
+      return "Dept05";
+    }
+    
+  };
+
   handleSubmit = (value) => {
     // event.preventDefault();
     console.log(value);
@@ -78,11 +93,11 @@ class StaffList extends Component {
       name: value.name,
       doB: value.doB,
       startDate: value.startDate,
-      department: value.department,
+      departmentId: this.returnDepartment(value.department),
       salaryScale: value.salaryScale,
       annualLeave: value.annualLeave,
       overTime: value.overTime,
-      image: "/assets/images/alberto.png"
+      image: "/assets/images/alberto.png",
     };
     this.props.onAdd(newStaff);
   };
@@ -151,6 +166,9 @@ class StaffList extends Component {
         return (
           <div className="col-6 col-md-4 col-lg-2 mt-3 mb-3" key={staff.id}>
             <RenderStaffItem staff={staff} />
+            <Button type="submit" color="primary" className="mt-1 ml-5">
+            Delete
+          </Button>
           </div>
         );
       });
@@ -187,6 +205,7 @@ class StaffList extends Component {
         </div>
         {/* render stafflist */}
         <div className="row">{stafflist}</div>
+
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Thêm nhân viên</ModalHeader>
           <ModalBody>
@@ -286,7 +305,6 @@ class StaffList extends Component {
                     <option>Marketing</option>
                     <option>HR</option>
                     <option>Finance</option>
-
                   </Control.select>
                 </Col>
               </Row>

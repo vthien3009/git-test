@@ -6,6 +6,7 @@ import StaffDetail from "./StaffDetail";
 import Department from "./Departments";
 import DepartmentDetail from "./DepartmentDetail";
 import Salary from "./Salary";
+import { Redirect } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -17,17 +18,16 @@ import {
 } from "../redux/ActionCreators";
 
 // import { STAFFS, DEPARTMENTS } from "../data/staffList";
-
 function Main() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchStaffs());
     dispatch(fetchDepartments());
     dispatch(fetchStaffsSalary());
-    const addStaff = (staff) => {
-      dispatch(addStaff(staff))
-    };
   }, []);
+  const adddStaff = (staff) => {
+    dispatch(addStaff(staff))
+  };
   const staffs = useSelector((state) => state.staffs);
   const departments = useSelector((state) => state.departments);
   const staffssalary = useSelector((state) => state.staffssalary);
@@ -53,15 +53,13 @@ function Main() {
     console.log(String(match.params.departmentId));
     return (
       <DepartmentDetail
-        // department={
-        //   departments.departments.filter(
-        //     (item) => item.departmentId === parseInt(match.params.departmentId)
-        //   )[0]
-        // }
+        departments={departments.departments.filter(
+          (departments)=>departments.id === String(match.params.departmentId)
+        )}
         staff={staffs
-        //   .staffs.filter(
-        //   (staff)=>staff.departmentId==String(match.params.departmentId)
-        // )
+          .staffs.filter(
+          (staff)=>staff.departmentId===String(match.params.departmentId)
+        )
       }
       />
     );
@@ -75,7 +73,7 @@ function Main() {
           path="/nhanvien"
           component={() => (
             <StaffList
-              onAdd={addStaff}
+              onAdd={adddStaff}
               staffs={staffs.staffs}
             />
           )}
@@ -93,7 +91,7 @@ function Main() {
           path="/luong"
           component={() => <Salary luong={staffssalary.staffssalary} />}
         />
-        {/* <Redirect to="/staff"/> */}
+        <Redirect to="/staff"/>
       </Switch>
       <Footer />
     </div>
