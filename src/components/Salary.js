@@ -8,11 +8,12 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { FadeTransform } from "react-animation-components";
 
 const luongCB = 3000000;
 const luongGio = 200000 / 8;
 
-function RenderSalary({ salary, colorSalary }) {
+function RenderSalary({ salary }) {
   return (
     <Card>
       <CardTitle className="p-3 bg-white rounded m-2">{salary.name}</CardTitle>
@@ -47,23 +48,30 @@ const Salary = (props) => {
     });
 
   return (
-    <div className="container">
-      <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link to="/nhanvien">Nhân Viên</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>Bảng lương</BreadcrumbItem>
-        </Breadcrumb>
+    <FadeTransform
+      in
+      transformProps={{
+        exitTransform: "scale(0.5) translateY(-70%)",
+      }}
+    >
+      <div className="container">
+        <div className="row">
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to="/nhanvien">Nhân Viên</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>Bảng lương</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+        <button
+          className="btn btn-danger"
+          onClick={() => setSortSalary(!sortSalary)}
+        >
+          Sắp xếp theo hệ thông lương
+        </button>
+        <div className="row shadow mb-3">{salary}</div>
       </div>
-      <button
-        className="btn btn-danger"
-        onClick={() => setSortSalary(!sortSalary)}
-      >
-        Sắp xếp theo hệ thông lương
-      </button>
-      <div className="row shadow mb-3">{salary}</div>
-    </div>
+    </FadeTransform>
   );
 };
 export default Salary;

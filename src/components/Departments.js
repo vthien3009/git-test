@@ -8,6 +8,7 @@ import {
   Breadcrumb,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { FadeTransform } from "react-animation-components";
 
 //Presentational
 class RenderDept extends Component {
@@ -37,17 +38,24 @@ function Department(props) {
     );
   });
   return (
-    <div className="container">
-      <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link to="/nhanvien">Nhân Viên</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>Phòng Ban</BreadcrumbItem>
-        </Breadcrumb>
+    <FadeTransform
+      in
+      transformProps={{
+        exitTransform: "scale(0.5) translateX(-50%)",
+      }}
+    >
+      <div className="container">
+        <div className="row">
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to="/nhanvien">Nhân Viên</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>Phòng Ban</BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+        <div className="row shadow m-3">{departments}</div>
       </div>
-      <div className="row shadow m-3">{departments}</div>
-    </div>
+    </FadeTransform>
   );
 }
 export default Department;

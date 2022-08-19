@@ -27,22 +27,24 @@ function Main() {
   };
   return (
     <div>
-    <Header />
+      <Header />
       <Switch>
         <Route
-            exact
-            path="/nhanvien"
-            component={() => <StaffList staffs={nhanVien.staffs} />}
+          exact
+          path="/nhanvien"
+          component={() => <StaffList staffs={nhanVien.staffs} />}
         />
-        <Route  path="/nhanvien/:nhanvienId" component={StaffWithId} />
-        <Route  path="/bophan" 
-                component={()=><Department dept={nhanVien.departments}/>}
+        <Route path="/nhanvien/:nhanvienId" component={StaffWithId} />
+        <Route
+          path="/bophan"
+          component={() => <Department dept={nhanVien.departments} />}
         />
-        <Route path="/luong" component={()=><Salary luong={nhanVien.staffs} />} 
-        
+        <Route
+          path="/luong"
+          component={() => <Salary luong={nhanVien.staffs} />}
         />
       </Switch>
-    <Footer />
+      <Footer />
     </div>
   );
 }
