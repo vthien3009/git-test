@@ -14,6 +14,7 @@ import {
   ModalHeader,
   ModalBody,
 } from "reactstrap";
+import { useState } from "react";
 import { Button } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import dateFormat from "dateformat";
@@ -36,6 +37,7 @@ function returnDepartment(value) {
     return "Finance";
   }
 }
+
 
 function RenderStaff({ staff }) {
   console.log(staff);
@@ -71,8 +73,30 @@ function RenderStaff({ staff }) {
 }
 
 function StaffDetail(props) {
+  const [isModalOpen, setisModalOpen] = useState(false)
+
+ function toggleModal() {
+    // setisModalOpen({ isModalOpen: !isModalOpen });
+    setisModalOpen(!isModalOpen);
+  }
+
+  function handleSubmit (value) {
+    // event.preventDefault();
+    console.log(value);
+    const newStaff = {
+      name: value.name,
+      doB: value.doB,
+      startDate: value.startDate,
+      departmentId: returnDepartment(value.department),
+      salaryScale: value.salaryScale,
+      annualLeave: value.annualLeave,
+      overTime: value.overTime,
+      image: "/assets/images/alberto.png",
+    };
+    props.onAdd(newStaff);
+  };
   console.log(props);
-  if (props.nv != null) {
+  if (props.staff != null) {
     return (
       <div className="container">
         <div className="row">
@@ -80,26 +104,26 @@ function StaffDetail(props) {
             <BreadcrumbItem>
               <Link to="/nhanvien">Nhân Viên</Link>
             </BreadcrumbItem>
-            <BreadcrumbItem active>{props.nv.name}</BreadcrumbItem>
+            <BreadcrumbItem active>{props.staff.name}</BreadcrumbItem>
           </Breadcrumb>
           <div className="col-12">
-            <h3>{props.nv.name}</h3>
+            <h3>{props.staff.name}</h3>
             <hr />
           </div>
           <div className="ml-2 mb-2">
-            <Button type="submit" color="primary">
+            <Button type="submit" color="primary" onClick={toggleModal}>
               Update
             </Button>
           </div>
         </div>
         <div className="row mb-3">
-          <RenderStaff staff={props.nv} />
+          <RenderStaff staff={props.staff} />
         </div>
 
-        <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-          <ModalHeader toggle={this.toggleModal}>Thêm nhân viên</ModalHeader>
+        <Modal isOpen={isModalOpen} toggle={toggleModal}>
+          <ModalHeader toggle={toggleModal}>Update Staff</ModalHeader>
           <ModalBody>
-            <LocalForm onSubmit={(value) => this.handleSubmit(value)}>
+            <LocalForm onSubmit={(value) => handleSubmit(value)}>
               <Row className="control-group">
                 <Label htmlFor="name" md={4}>
                   Tên
@@ -110,6 +134,7 @@ function StaffDetail(props) {
                     className="form-control"
                     id="name"
                     name="name"
+                    value={props.staff.name}
                     validators={{
                       required,
                       minlength: minlength(3),
@@ -139,6 +164,7 @@ function StaffDetail(props) {
                     className="form-control"
                     id="doB"
                     name="doB"
+                    defaultValue={dateFormat(props.staff.doB, "yyyy-mm-dd")}
                     validators={{
                       required,
                     }}
@@ -164,6 +190,7 @@ function StaffDetail(props) {
                     className="form-control"
                     id="startDate"
                     name="startDate"
+                    defaultValue={dateFormat(props.staff.startDate, "yyyy-mm-dd")}
                     validators={{
                       required,
                     }}
@@ -189,6 +216,7 @@ function StaffDetail(props) {
                     className="form-control"
                     id="department"
                     name="department"
+                    defaultValue={ returnDepartment(props.staff.departmentId)}
                   >
                     <option>Sale</option>
                     <option>IT</option>
@@ -209,9 +237,9 @@ function StaffDetail(props) {
                     className="form-control"
                     id="salaryScale"
                     name="salaryScale"
-                    value={this.state.salaryScale}
-                    onBlur={this.handleBlur("annualLeave")}
-                    onChange={this.handleInputChange}
+                    value={props.staff.salaryScale}
+                    // onBlur={this.handleBlur("annualLeave")}
+                    // onChange={this.handleInputChange}
                     validators={{
                       // required,
                       isNumber,
@@ -239,8 +267,9 @@ function StaffDetail(props) {
                     className="form-control"
                     id="annualLeave"
                     name="annualLeave"
-                    onBlur={this.handleBlur("annualLeave")}
-                    onChange={this.handleInputChange}
+                    value={props.staff.annualLeave}
+                    // onBlur={this.handleBlur("annualLeave")}
+                    // onChange={this.handleInputChange}
                     validators={{
                       isNumber,
                     }}
@@ -267,9 +296,9 @@ function StaffDetail(props) {
                     className="form-control"
                     id="overTime"
                     name="overTime"
-                    value={this.state.overTime}
-                    onBlur={this.handleBlur("annualLeave")}
-                    onChange={this.handleInputChange}
+                    value={props.staff.overTime}
+                    // onBlur={this.handleBlur("annualLeave")}
+                    // onChange={this.handleInputChange}
                     validators={{
                       isNumber,
                     }}

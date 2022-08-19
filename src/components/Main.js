@@ -15,7 +15,8 @@ import {
   fetchDepartments,
   fetchStaffsSalary,
   addStaff,
-  deleteStaff
+  deleteStaff,
+  updateStaff
 } from "../redux/ActionCreators";
 
 // import { STAFFS, DEPARTMENTS } from "../data/staffList";
@@ -36,6 +37,10 @@ function Main() {
       dispatch(deleteStaff(id))
     }
   }
+
+  const updateStaffButton = (staff)=>{
+    dispatch(updateStaff(staff))
+  }
   const staffs = useSelector((state) => state.staffs);
   const departments = useSelector((state) => state.departments);
   const staffssalary = useSelector((state) => state.staffssalary);
@@ -48,17 +53,18 @@ function Main() {
   const StaffWithId = ({ match }) => {
     return (
       <StaffDetail
-        nv={
+        staff={
           staffs.staffs.filter(
             (item) => item.id === parseInt(match.params.nhanvienId, 10)
           )[0]
         }
+        onClickButtonUpdate = {updateStaffButton}
       />
     );
   };
   const StaffWithDepartment = ({match}) => {
     // console.log(staffs.staffs.filter((staff)=>staff.departmentId=='Dept01'));
-    console.log(String(match.params.departmentId));
+    // console.log(String(match.params.departmentId));
     return (
       <DepartmentDetail
         departments={departments.departments.filter(

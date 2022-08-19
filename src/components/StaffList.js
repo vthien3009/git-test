@@ -9,7 +9,6 @@ import {
   Label,
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
-import { deleteStaff } from "../redux/ActionCreators";
 import RenderStaffItem from "./RenderStaffItem";
 
 const required = (val) => val && val.length;
