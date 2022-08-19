@@ -9,6 +9,7 @@ import {
   Label,
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { deleteStaff } from "../redux/ActionCreators";
 import RenderStaffItem from "./RenderStaffItem";
 
 const required = (val) => val && val.length;
@@ -83,7 +84,6 @@ class StaffList extends Component {
     }else if (value == "Finance"){
       return "Dept05";
     }
-    
   };
 
   handleSubmit = (value) => {
@@ -163,10 +163,11 @@ class StaffList extends Component {
         return 0;
       })
       .map((staff) => {
+
         return (
           <div className="col-6 col-md-4 col-lg-2 mt-3 mb-3" key={staff.id}>
             <RenderStaffItem staff={staff} />
-            <Button type="submit" color="primary" className="mt-1 ml-5">
+            <Button type="submit" color="primary" className="mt-1 ml-5" onClick={()=>this.props.onClickButtonDelete(staff.id)}>
             Delete
           </Button>
           </div>

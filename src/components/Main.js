@@ -14,7 +14,8 @@ import {
   fetchStaffs,
   fetchDepartments,
   fetchStaffsSalary,
-  addStaff
+  addStaff,
+  deleteStaff
 } from "../redux/ActionCreators";
 
 // import { STAFFS, DEPARTMENTS } from "../data/staffList";
@@ -25,9 +26,16 @@ function Main() {
     dispatch(fetchDepartments());
     dispatch(fetchStaffsSalary());
   }, []);
-  const adddStaff = (staff) => {
+
+  const addStaffWithMethodPost = (staff) => {
     dispatch(addStaff(staff))
   };
+
+  const deleteStaffButton = (id) =>{
+    if(window.confirm("Are you sure to delete this staff?")){
+      dispatch(deleteStaff(id))
+    }
+  }
   const staffs = useSelector((state) => state.staffs);
   const departments = useSelector((state) => state.departments);
   const staffssalary = useSelector((state) => state.staffssalary);
@@ -73,8 +81,9 @@ function Main() {
           path="/nhanvien"
           component={() => (
             <StaffList
-              onAdd={adddStaff}
+              onAdd={addStaffWithMethodPost}
               staffs={staffs.staffs}
+              onClickButtonDelete = {deleteStaffButton}
             />
           )}
         />
@@ -91,7 +100,7 @@ function Main() {
           path="/luong"
           component={() => <Salary luong={staffssalary.staffssalary} />}
         />
-        <Redirect to="/staff"/>
+        <Redirect to="/nhanvien"/>
       </Switch>
       <Footer />
     </div>

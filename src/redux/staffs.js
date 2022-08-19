@@ -62,6 +62,11 @@ export const Staffs = (
         ...state,
         staffs: action.payload,
       };
+    case ActionTypes.UPDATE_STAFF_FAILED:
+      return {
+        ...state,
+        errMess: action.payload,
+      };
     default:
       return state;
   }
