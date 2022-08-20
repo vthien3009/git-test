@@ -3,13 +3,10 @@ import {
   Button,
   Modal,
   Col,
-  Form,
-  Input,
   ModalHeader,
   ModalBody,
   Row,
   Label,
-  FormFeedback,
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import RenderStaffItem from "./RenderStaffItem";
@@ -55,13 +52,14 @@ class StaffList extends Component {
   handleChange(event) {
     event.preventDefault();
     this.setState({ nameF: event.target.value });
-    console.log(this.props);
+    console.log('handleChange');
   }
 
   handleBlur = (field) => (event) => {
     this.setState({
       touched: { ...this.state.touched, [field]: true },
     });
+    console.log('handleBlur');
   };
 
   handleInputChange(event) {
@@ -71,6 +69,7 @@ class StaffList extends Component {
     this.setState({
       [name]: value,
     });
+    console.log('handleInputChange');
   }
 
   handleSubmit = (value) => {
