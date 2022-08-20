@@ -145,7 +145,7 @@ export const updateStaffFailed = (errmess) => ({
 
 export const updateStaff = (staff) => (dispatch) => {
   return fetch(baseUrl1 + "staffs", {
-    method: "patch",
+    method: "PUT",
     body: JSON.stringify(staff),
     headers: {
       "Content-Type": "application/json",

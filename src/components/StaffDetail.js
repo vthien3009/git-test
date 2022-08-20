@@ -38,7 +38,6 @@ function returnDepartment(value) {
   }
 }
 
-
 function RenderStaff({ staff }) {
   console.log(staff);
   if (staff != null) {
@@ -73,16 +72,15 @@ function RenderStaff({ staff }) {
 }
 
 function StaffDetail(props) {
-  const [isModalOpen, setisModalOpen] = useState(false)
+  const [isModalOpen, setisModalOpen] = useState(false);
 
- function toggleModal() {
+  function toggleModal() {
     // setisModalOpen({ isModalOpen: !isModalOpen });
     setisModalOpen(!isModalOpen);
   }
 
-  function handleSubmit (value) {
+  function handleSubmit(value) {
     // event.preventDefault();
-    console.log(value);
     const newStaff = {
       name: value.name,
       doB: value.doB,
@@ -92,9 +90,11 @@ function StaffDetail(props) {
       annualLeave: value.annualLeave,
       overTime: value.overTime,
       image: "/assets/images/alberto.png",
+      id: 20,
     };
-    props.onAdd(newStaff);
-  };
+    console.log(newStaff);
+    props.onClickButtonUpdate(newStaff);
+  }
   console.log(props);
   if (props.staff != null) {
     return (
@@ -134,7 +134,7 @@ function StaffDetail(props) {
                     className="form-control"
                     id="name"
                     name="name"
-                    value={props.staff.name}
+                    defaultValue={props.staff.name}
                     validators={{
                       required,
                       minlength: minlength(3),
@@ -190,7 +190,10 @@ function StaffDetail(props) {
                     className="form-control"
                     id="startDate"
                     name="startDate"
-                    defaultValue={dateFormat(props.staff.startDate, "yyyy-mm-dd")}
+                    defaultValue={dateFormat(
+                      props.staff.startDate,
+                      "yyyy-mm-dd"
+                    )}
                     validators={{
                       required,
                     }}
@@ -216,7 +219,7 @@ function StaffDetail(props) {
                     className="form-control"
                     id="department"
                     name="department"
-                    defaultValue={ returnDepartment(props.staff.departmentId)}
+                    defaultValue={returnDepartment(props.staff.departmentId)}
                   >
                     <option>Sale</option>
                     <option>IT</option>
@@ -237,7 +240,7 @@ function StaffDetail(props) {
                     className="form-control"
                     id="salaryScale"
                     name="salaryScale"
-                    value={props.staff.salaryScale}
+                    defaultValue={props.staff.salaryScale}
                     // onBlur={this.handleBlur("annualLeave")}
                     // onChange={this.handleInputChange}
                     validators={{
@@ -267,7 +270,7 @@ function StaffDetail(props) {
                     className="form-control"
                     id="annualLeave"
                     name="annualLeave"
-                    value={props.staff.annualLeave}
+                    defaultValue={props.staff.annualLeave}
                     // onBlur={this.handleBlur("annualLeave")}
                     // onChange={this.handleInputChange}
                     validators={{
@@ -296,7 +299,7 @@ function StaffDetail(props) {
                     className="form-control"
                     id="overTime"
                     name="overTime"
-                    value={props.staff.overTime}
+                    defaultValue={props.staff.overTime}
                     // onBlur={this.handleBlur("annualLeave")}
                     // onChange={this.handleInputChange}
                     validators={{
