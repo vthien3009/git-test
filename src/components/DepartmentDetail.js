@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function DepartmentDetail(props) {
-  console.log(props.departments);
   const listNhanVien = props.staff.map((staff) => {
     return (
       <Link to={`/nhanvien/${staff.id}`}>

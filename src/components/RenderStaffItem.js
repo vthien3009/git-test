@@ -1,17 +1,22 @@
 import React from "react";
 import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
 
-function RenderStaffItem(props) {
-  // console.log(props);
+function RenderStaffItem({item, isLoading, errMess}) {
+  console.log( isLoading, errMess);
   // const listNhanVien = props.staffs.map((nv) => {
-
+    if (isLoading) {
+      return <Loading />;
+    } else if (errMess) {
+      return <h4>{errMess}</h4>;
+    } else {
   return (
-    <Link to={`/nhanvien/${props.staff.id}`}>
-      <div key={props.staff.id} className='border'>
+    <Link to={`/nhanvien/${item.id}`}>
+      <div key={item.id} className='border'>
         <div className="col-12 m-1">
-          <img src={props.staff.image} alt={props.staff.name } className="center-block ml-2" />
-          <p className="text-center">{props.staff.name}</p>
+          <img src={item.image} alt={item.name } className="center-block ml-2" />
+          <p className="text-center">{item.name}</p>
         </div>
       </div>
           {/* <Button type="submit" color="warning">
@@ -19,7 +24,7 @@ function RenderStaffItem(props) {
           </Button> */}
     </Link>
   );
-
+        }
   // return (
   //   <div className="container">
   //     <div className="row">{listNhanVien}</div>

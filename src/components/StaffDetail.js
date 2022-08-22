@@ -17,6 +17,7 @@ import {
 import { useState } from "react";
 import { Button } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { useParams } from "react-router-dom";
 import dateFormat from "dateformat";
 
 const required = (val) => val && val.length;
@@ -24,7 +25,7 @@ const maxLength = (len) => (val) => !val || val.length <= len;
 const minlength = (len) => (val) => val && val.length >= len;
 const isNumber = (val) => !isNaN(Number(val));
 
-function returnDepartment(value) {
+function returnDepartmentName(value) {
   if (value == "Dept01") {
     return "Sale";
   } else if (value == "Dept02") {
@@ -35,6 +36,19 @@ function returnDepartment(value) {
     return "IT";
   } else if (value == "Dept05") {
     return "Finance";
+  }
+}
+function returnDepartmentId(value) {
+  if (value == "Sale") {
+    return "Dept01";
+  } else if (value == "HR") {
+    return "Dept02";
+  } else if (value == "Marketing") {
+    return "Dept03";
+  } else if (value == "IT") {
+    return "Dept04";
+  } else if (value == "Finance") {
+    return "Dept05";
   }
 }
 
@@ -57,7 +71,7 @@ function RenderStaff({ staff }) {
                 Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}
               </CardText>
               <CardText>
-                Phòng ban: {returnDepartment(staff.departmentId)}
+                Phòng ban: {returnDepartmentName(staff.departmentId)}
               </CardText>
               <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
               <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
@@ -73,29 +87,28 @@ function RenderStaff({ staff }) {
 
 function StaffDetail(props) {
   const [isModalOpen, setisModalOpen] = useState(false);
-
   function toggleModal() {
-    // setisModalOpen({ isModalOpen: !isModalOpen });
     setisModalOpen(!isModalOpen);
   }
 
+//submit btn update staff
   function handleSubmit(value) {
     // event.preventDefault();
+    console.log(value);
     const newStaff = {
       name: value.name,
       doB: value.doB,
       startDate: value.startDate,
-      departmentId: returnDepartment(value.department),
+      departmentId: returnDepartmentId(value.department),
       salaryScale: value.salaryScale,
       annualLeave: value.annualLeave,
       overTime: value.overTime,
       image: "/assets/images/alberto.png",
-      id: 20,
+      id: props.staff.id,
     };
-    console.log(newStaff);
     props.onClickButtonUpdate(newStaff);
   }
-  console.log(props);
+  // console.log(props);
   if (props.staff != null) {
     return (
       <div className="container">
@@ -219,7 +232,9 @@ function StaffDetail(props) {
                     className="form-control"
                     id="department"
                     name="department"
-                    defaultValue={returnDepartment(props.staff.departmentId)}
+                    defaultValue={returnDepartmentName(
+                      props.staff.departmentId
+                    )}
                   >
                     <option>Sale</option>
                     <option>IT</option>
@@ -320,7 +335,7 @@ function StaffDetail(props) {
               <Row className="control-group mt-2">
                 <Col md={8}>
                   <Button type="submit" color="primary">
-                    Add
+                    Update
                   </Button>
                 </Col>
               </Row>

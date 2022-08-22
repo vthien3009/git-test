@@ -9,6 +9,7 @@ import {
   Label,
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { Loading } from "./LoadingComponent";
 import RenderStaffItem from "./RenderStaffItem";
 
 const required = (val) => val && val.length;
@@ -71,33 +72,33 @@ class StaffList extends Component {
     });
   }
 
-  returnDepartment = (value) => {
+  returnDepartmentId = (value) => {
     if (value == "Sale") {
       return "Dept01";
-    }else if (value == 'HR'){
+    } else if (value == "HR") {
       return "Dept02";
-    }else if (value == 'Marketing'){
+    } else if (value == "Marketing") {
       return "Dept03";
-    }else if (value == 'IT'){
+    } else if (value == "IT") {
       return "Dept04";
-    }else if (value == "Finance"){
+    } else if (value == "Finance") {
       return "Dept05";
     }
   };
 
   handleSubmit = (value) => {
     // event.preventDefault();
-    console.log(value);
     const newStaff = {
       name: value.name,
       doB: value.doB,
       startDate: value.startDate,
-      departmentId: this.returnDepartment(value.department),
+      departmentId: this.returnDepartmentId(value.department),
       salaryScale: value.salaryScale,
       annualLeave: value.annualLeave,
       overTime: value.overTime,
       image: "/assets/images/alberto.png",
     };
+    console.log(value);
     this.props.onAdd(newStaff);
   };
 
@@ -105,54 +106,10 @@ class StaffList extends Component {
     this.setState({ isModalOpen: !this.state.isModalOpen });
   }
 
-  validate(
-    name,
-    department,
-    salaryScale,
-    doB,
-    startDate,
-    annualLeave,
-    overTime
-  ) {
-    const errors = {
-      name: "",
-      department: "",
-      doB: "",
-      startDate: "",
-      salaryScale: "",
-      annualLeave: "",
-      overTime: "",
-    };
-    if (this.state.touched.name && name.length < 3)
-      errors.name = "Name should be >= 3 characters";
-    else if (this.state.touched.name && this.state.name.length >= 50)
-      errors.name = "Name should be <= 50 characters";
-    if (this.state.touched.department && department.length < 1)
-      errors.department = "Yêu cầu nhập";
-    if (this.state.touched.salaryScale && salaryScale.length < 1)
-      errors.salaryScale = "Yêu cầu nhập";
-    if (this.state.touched.annualLeave && annualLeave.length < 1)
-      errors.annualLeave = "Yêu cầu nhập";
-    if (this.state.touched.overTime && overTime.length < 1)
-      errors.overTime = "Yêu cầu nhập";
-    if (this.state.touched.doB && doB.length < 1) errors.doB = "Yêu cầu nhập";
-    if (this.state.touched.startDate && startDate.length < 1)
-      errors.startDate = "Yêu cầu nhập";
-    return errors;
-  }
-
   render() {
-    const errors = this.validate(
-      this.state.name,
-      this.state.department,
-      this.state.salaryScale,
-      this.state.doB,
-      this.state.startDate,
-      this.state.annualLeave,
-      this.state.overTime
-    );
+    console.log(this.props.staffs.isLoading);
 
-    const stafflist = this.props.staffs
+    const stafflist = this.props.staffs.staffs
       .filter((staff) => {
         if (this.state.nameF === "") return staff;
         else if (
@@ -162,18 +119,33 @@ class StaffList extends Component {
         return 0;
       })
       .map((staff) => {
-
+        console.log(this.props.staffs.isLoading);
         return (
           <div className="col-6 col-md-4 col-lg-2 mt-3 mb-3" key={staff.id}>
-            <RenderStaffItem staff={staff} />
-            <Button type="submit" color="primary" className="mt-1 ml-5" onClick={()=>this.props.onClickButtonDelete(staff.id)}>
-            Delete
-          </Button>
+            <RenderStaffItem
+              item={staff}
+              isLoading={this.props.staffs.isLoading}
+              errMess={this.props.staffs.errMess}
+            />
+            <Button
+              type="submit"
+              color="primary"
+              className="mt-1 ml-5"
+              onClick={() => this.props.onClickButtonDelete(staff.id)}
+            >
+              Delete
+            </Button>
           </div>
         );
       });
 
     //render giao dien staff list
+    // console.log(this.props.staffs.isLoading);
+    // if (this.props.staffs.isLoading) {
+    //   return <Loading />;
+    // } else if (this.props.staffs.errMess) {
+    //   return <h4>{this.props.staffs.errMess}</h4>;
+    // } else {
     return (
       //bao gom them nv va o tim kiem nhan vien
       <div className="container">
@@ -181,7 +153,7 @@ class StaffList extends Component {
           <div className="col-12 col-md-6 mt-4">
             <div className="row">
               <div className="col-10 col-md-10">
-                <h3>Nhan vien</h3>
+                <h3>Nhân Viên</h3>
               </div>
               <div className="col-2 col-auto">
                 <button onClick={this.toggleModal}>
@@ -204,6 +176,7 @@ class StaffList extends Component {
           </div>
         </div>
         {/* render stafflist */}
+
         <div className="row">{stafflist}</div>
 
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
@@ -407,6 +380,7 @@ class StaffList extends Component {
         </Modal>
       </div>
     );
+    // }
   }
 }
 

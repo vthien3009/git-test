@@ -88,7 +88,7 @@ function Main() {
           component={() => (
             <StaffList
               onAdd={addStaffWithMethodPost}
-              staffs={staffs.staffs}
+              staffs={staffs}
               onClickButtonDelete = {deleteStaffButton}
             />
           )}

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardTitle, CardBody, CardText } from "reactstrap";
 import { Link } from "react-router-dom";
-import RenderStaffItem from "./RenderStaffItem";
 //Presentational
 class RenderDept extends Component {
   render() {
