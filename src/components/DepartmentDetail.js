@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
 
 function DepartmentDetail(props) {
+  console.log(props);
+  if(props.departments.length ==0){
+    return <Loading/>
+  }else{
   const listNhanVien = props.staff.map((staff) => {
     return (
       <Link to={`/nhanvien/${staff.id}`}>
@@ -20,5 +25,6 @@ function DepartmentDetail(props) {
       <div className="row">{listNhanVien}</div>
     </div>
   );
+  }
 }
 export default DepartmentDetail;

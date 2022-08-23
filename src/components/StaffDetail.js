@@ -17,7 +17,6 @@ import {
 import { useState } from "react";
 import { Button } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
-import { useParams } from "react-router-dom";
 import dateFormat from "dateformat";
 
 const required = (val) => val && val.length;
@@ -91,7 +90,7 @@ function StaffDetail(props) {
     setisModalOpen(!isModalOpen);
   }
 
-//submit btn update staff
+  //submit btn update staff
   function handleSubmit(value) {
     // event.preventDefault();
     console.log(value);

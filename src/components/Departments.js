@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Card, CardTitle, CardBody, CardText } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
 //Presentational
 class RenderDept extends Component {
   render() {
@@ -22,8 +23,11 @@ class RenderDept extends Component {
 //Container component
 function Department(props) {
   console.log(props);
+  if(props.departments.isLoading){
+    return <Loading/>
+  }
   //dung map de fetch toan bo data tu props cua Main Component
-  const departments = props.departments.map((department) => {
+  const departments = props.departments.departments.map((department) => {
     return (
       <div className="col-12 col-md-6 col-lg-4 mt-2 mb-2" key={department.id}>
         <RenderDept 

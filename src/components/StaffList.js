@@ -10,6 +10,10 @@ import {
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from "./LoadingComponent";
+import {
+  Fade,
+  Loop,
+} from "react-animation-components";
 import RenderStaffItem from "./RenderStaffItem";
 
 const required = (val) => val && val.length;
@@ -108,7 +112,9 @@ class StaffList extends Component {
 
   render() {
     console.log(this.props.staffs.isLoading);
-
+    if (this.props.staffs.isLoading) {
+      return <Loading />;
+    }
     const stafflist = this.props.staffs.staffs
       .filter((staff) => {
         if (this.state.nameF === "") return staff;
@@ -127,14 +133,18 @@ class StaffList extends Component {
               isLoading={this.props.staffs.isLoading}
               errMess={this.props.staffs.errMess}
             />
-            <Button
-              type="submit"
-              color="primary"
-              className="mt-1 ml-5"
-              onClick={() => this.props.onClickButtonDelete(staff.id)}
-            >
-              Delete
-            </Button>
+            <Loop in iterations={1.5}>
+              <Fade>
+                <Button
+                  type="submit"
+                  color="primary"
+                  className="mt-1 ml-5"
+                  onClick={() => this.props.onClickButtonDelete(staff.id)}
+                >
+                  Delete
+                </Button>
+              </Fade>
+            </Loop>
           </div>
         );
       });
@@ -176,9 +186,9 @@ class StaffList extends Component {
           </div>
         </div>
         {/* render stafflist */}
-
+        {/* <Fade in> */}
         <div className="row">{stafflist}</div>
-
+        {/* </Fade> */}
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Thêm nhân viên</ModalHeader>
           <ModalBody>
