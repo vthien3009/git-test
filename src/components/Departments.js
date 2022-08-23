@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, CardTitle, CardBody, CardText } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
-import { Slide, Stagger, Fade } from "react-animation-components";
+import {  Stagger, Fade } from "react-animation-components";
 //Presentational
 class RenderDept extends Component {
   render() {
@@ -29,14 +29,14 @@ function Department(props) {
   const departments = props.departments.departments.map((department) => {
     return (
       <div className="col-12 col-md-6 col-lg-4 mt-2 mb-2" key={department.id}>
-        <Slide in>
+        <Fade in>
           <RenderDept
             dept={department}
             staffNo={props.staffs.filter(
               (staff) => staff.departmentId === department.id
             )}
           />
-        </Slide>
+        </Fade>
       </div>
     );
   });
