@@ -46,7 +46,7 @@ class StaffList extends Component {
         overTime: false,
       },
     };
-    console.log(props);
+    // console.log(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -102,7 +102,7 @@ class StaffList extends Component {
       overTime: value.overTime,
       image: "/assets/images/alberto.png",
     };
-    console.log(value);
+    // console.log(value);
     this.props.onAdd(newStaff);
   };
 

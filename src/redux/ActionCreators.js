@@ -126,7 +126,7 @@ export const deleteStaffLoading = () => ({
 });
 
 export const deleteStaff = (id) => (dispatch) => {
-  console.log(id);
+  // console.log(id);
   return fetch(baseUrl1 + `staffs/${id}`, {
     method: "DELETE",
   }).then(() => dispatch(deleteStaffSuccess(id)));
@@ -134,12 +134,12 @@ export const deleteStaff = (id) => (dispatch) => {
 
 //Update
 export const updateStaffSuccess = (staff) => ({
-  type: ActionTypes.DELETE_STAFF_SUCCESS,
+  type: ActionTypes.UPDATE_STAFF_SUCCESS,
   payload: staff,
 });
 
 export const updateStaffFailed = (errmess) => ({
-  type: ActionTypes.DELETE_STAFF_FAILED,
+  type: ActionTypes.UPDATE_STAFF_FAILED,
   payload: errmess,
 });
 
@@ -172,6 +172,6 @@ export const updateStaff = (staff) => (dispatch) => {
       }
     )
     .then((res) => res.json())
-    .then((staffs) => dispatch(addStaffSuccess(staffs)))
+    .then((staffs) => dispatch(updateStaffSuccess(staffs)))
     .catch((error) => dispatch(updateStaffFailed(error.message)));
 };
